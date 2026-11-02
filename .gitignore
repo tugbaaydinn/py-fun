@@ -42,7 +42,10 @@ branches/
 
 # ignore folders with javadoc (generated)
 doc/
-docs/
+
+# ignore generated Sphinx documentation
+docs/_build/
+docs/build/
 
 # ignore log directories and *.log files (generated)
 log/

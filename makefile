@@ -16,13 +16,13 @@ package: clean build
 # content under 'build/lib' including docs
 $(BUILD): tests $(DOCS_BUILD)
 	mkdir -p $(BUILD)/lib
-	[ ! -d $(BUILD)/lib/html ] && mkdir $(BUILD)/lib/html
+	mkdir -p $(BUILD)/lib/html
 	cp -R $(DOCS_BUILD) $(BUILD)/lib
 	[ -f setup.py ] && python setup.py $(BUILD)
 
 # run tests
 tests: .PHONY
-	python -m unittest -v tests
+	python -m unittest discover -s tests -p "test_*.py" -v
 
 # build docs
 $(DOCS_BUILD):
@@ -35,7 +35,7 @@ clean:
 
 # install Python dependencies from 'requirements.txt'
 REQUIREMENTS="requirements.txt"
-# 
+#
 install:
 	@pip install -r $(REQUIREMENTS) | grep -v "already satisfied" || \
 		echo "everything from \"$(REQUIREMENTS)\" is up-to-date"
